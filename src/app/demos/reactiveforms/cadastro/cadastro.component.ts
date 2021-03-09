@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
+import { Usuario } from "src/app/Model/usuario";
 
 @Component({
   selector: "app-cadastro",
@@ -7,8 +8,10 @@ import { FormBuilder } from "@angular/forms";
   styles: [],
 })
 export class CadastroComponent implements OnInit {
+  usuario: Usuario;
+
   cadastroForm = this.fb.group({
-    nome: [""],
+    nome: ["", Validators.required],
     cpf: [""],
     email: [""],
     senha: [""],
@@ -19,7 +22,6 @@ export class CadastroComponent implements OnInit {
   ngOnInit(): void {}
 
   adicionarUsuario() {
-    let x = this.cadastroForm.value;
-    console.warn(this.cadastroForm.value);
+    this.usuario = Object.assign({}, this.usuario, this.cadastroForm.value);
   }
 }
