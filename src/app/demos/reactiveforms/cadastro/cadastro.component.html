@@ -12,7 +12,22 @@
             id="nome"
             placeholder="Nome (requerido)"
             formControlName="nome"
+            [ngClass]="{
+              'is-invalid':
+                cadastroForm.get('nome').errors &&
+                (cadastroForm.get('nome').touched ||
+                  cadastroForm.get('nome').dirty)
+            }"
           />
+          <span
+            class="text-danger"
+            *ngIf="
+              cadastroForm.get('nome').errors &&
+              (cadastroForm.get('nome').touched ||
+                cadastroForm.get('nome').dirty)
+            "
+            ><p>Preencha o campo nome</p></span
+          >
         </div>
       </div>
 
@@ -76,6 +91,14 @@
               Registrar
             </button>
           </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-4 col-md-offset-2">
+          <p>Formulário valido: {{ cadastroForm.valid }}</p>
+          <p>Formulário tocado: {{ cadastroForm.touched }}</p>
+          <p>Formulário sujo: {{ cadastroForm.dirty }}</p>
         </div>
       </div>
     </div>
