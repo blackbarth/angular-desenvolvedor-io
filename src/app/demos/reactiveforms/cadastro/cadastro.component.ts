@@ -9,11 +9,12 @@ import { Usuario } from "src/app/Model/usuario";
 })
 export class CadastroComponent implements OnInit {
   usuario: Usuario;
+  formResult: string = "";
 
   cadastroForm = this.fb.group({
     nome: ["", Validators.required],
     cpf: [""],
-    email: [""],
+    email: ["", [Validators.required, Validators.email]],
     senha: [""],
     confimarsenha: [""],
   });
@@ -22,6 +23,9 @@ export class CadastroComponent implements OnInit {
   ngOnInit(): void {}
 
   adicionarUsuario() {
-    this.usuario = Object.assign({}, this.usuario, this.cadastroForm.value);
+    if (this.cadastroForm.dirty && this.cadastroForm.valid) {
+      this.usuario = Object.assign({}, this.usuario, this.cadastroForm.value);
+      this.formResult = JSON.stringify(this.cadastroForm.value);
+    }
   }
 }
