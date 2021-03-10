@@ -24,7 +24,10 @@ export class CadastroComponent implements OnInit {
   formResult: string = "";
 
   cadastroForm = this.fb.group({
-    nome: ["", Validators.required],
+    nome: [
+      "",
+      [Validators.required, Validators.minLength(2), Validators.maxLength(150)],
+    ],
     cpf: ["", [Validators.required, NgBrazilValidators.cpf]],
     email: ["", [Validators.required, Validators.email]],
     senha: this.senha,

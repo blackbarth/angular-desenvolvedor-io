@@ -118,6 +118,15 @@
             "
             ><p>Tamanho invalido tem que ser entre 6 a 15 caracteres</p></span
           >
+          <span
+            class="text-danger"
+            *ngIf="
+              cadastroForm.get('senha')?.errors?.required &&
+              (cadastroForm.get('senha').touched ||
+                cadastroForm.get('senha').dirty)
+            "
+            ><p>Campo de senha é obrigatório</p></span
+          >
         </div>
       </div>
 
