@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, Validators } from "@angular/forms";
 import { Usuario } from "src/app/Model/usuario";
+import { MASKS, NgBrazilValidators } from "ng-brazil";
+import { CustomValidators } from "ng2-validation";
 
 @Component({
   selector: "app-cadastro",
@@ -8,15 +10,28 @@ import { Usuario } from "src/app/Model/usuario";
   styles: [],
 })
 export class CadastroComponent implements OnInit {
+  senha = new FormControl("", [
+    Validators.required,
+    CustomValidators.rangeLength([6, 15]),
+  ]);
+  confimarsenha = new FormControl("", [
+    Validators.required,
+    CustomValidators.rangeLength([6, 15]),
+    CustomValidators.equalTo(this.senha),
+  ]);
+  public MASKS = MASKS;
   usuario: Usuario;
   formResult: string = "";
 
   cadastroForm = this.fb.group({
-    nome: ["", Validators.required],
-    cpf: [""],
+    nome: [
+      "",
+      [Validators.required, Validators.minLength(2), Validators.maxLength(150)],
+    ],
+    cpf: ["", [Validators.required, NgBrazilValidators.cpf]],
     email: ["", [Validators.required, Validators.email]],
-    senha: [""],
-    confimarsenha: [""],
+    senha: this.senha,
+    confimarsenha: this.confimarsenha,
   });
   constructor(private fb: FormBuilder) {}
 

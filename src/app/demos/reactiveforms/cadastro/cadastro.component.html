@@ -40,7 +40,26 @@
             id="cpf"
             placeholder="CPF (requerido)"
             formControlName="cpf"
+            cpf
+            [textMask]="{ mask: MASKS.cpf.textMask }"
           />
+          <span
+            class="text-danger"
+            *ngIf="
+              cadastroForm.get('cpf')?.errors?.required &&
+              (cadastroForm.get('cpf').touched || cadastroForm.get('cpf').dirty)
+            "
+            ><p>Preencha o campo CPF</p></span
+          >
+
+          <span
+            class="text-danger"
+            *ngIf="
+              cadastroForm.get('cpf')?.errors?.cpf &&
+              (cadastroForm.get('cpf').touched || cadastroForm.get('cpf').dirty)
+            "
+            ><p>CPF Inválido</p></span
+          >
         </div>
       </div>
 
@@ -90,6 +109,24 @@
             placeholder="Senha (requerido)"
             formControlName="senha"
           />
+          <span
+            class="text-danger"
+            *ngIf="
+              cadastroForm.get('senha')?.errors?.rangeLength &&
+              (cadastroForm.get('senha').touched ||
+                cadastroForm.get('senha').dirty)
+            "
+            ><p>Tamanho invalido tem que ser entre 6 a 15 caracteres</p></span
+          >
+          <span
+            class="text-danger"
+            *ngIf="
+              cadastroForm.get('senha')?.errors?.required &&
+              (cadastroForm.get('senha').touched ||
+                cadastroForm.get('senha').dirty)
+            "
+            ><p>Campo de senha é obrigatório</p></span
+          >
         </div>
       </div>
 
