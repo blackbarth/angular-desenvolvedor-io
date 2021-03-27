@@ -1,100 +1,89 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChildren,
-} from "@angular/core";
-import {
-  FormBuilder,
-  FormControl,
-  FormControlName,
-  Validators,
-} from "@angular/forms";
-import { Usuario } from "src/app/Model/usuario";
-import { MASKS, NgBrazilValidators } from "ng-brazil";
-import { CustomValidators } from "ng2-validation";
-import {
-  DisplayMessage,
-  GenericValidator,
-  ValidationMessages,
-} from "./generic-form-validation";
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChildren } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl, FormControlName } from '@angular/forms';
+
+import { Usuario } from './models/usuario';
+import { NgBrazilValidators } from 'ng-brazil';
+import { utilsBr } from 'js-brasil';
+import { CustomValidators } from 'ng2-validation';
+import { ValidationMessages, GenericValidator, DisplayMessage } from './generic-form-validation';
+import { Observable, fromEvent, merge } from 'rxjs';
 
 @Component({
-  selector: "app-cadastro",
-  templateUrl: "./cadastro.component.html",
-  styles: [],
+  selector: 'app-cadastro',
+  templateUrl: './cadastro.component.html'
 })
 export class CadastroComponent implements OnInit, AfterViewInit {
-  //implementaçao importante para ser observada
-  @ViewChildren(FormControlName, { read: ElementRef })
-  formInputElements: ElementRef[];
+  
+  @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
+
+  cadastroForm: FormGroup;
+  usuario: Usuario;
+  formResult: string = '';
+  MASKS = utilsBr.MASKS;
 
   validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
 
-  senha = new FormControl("", [
-    Validators.required,
-    CustomValidators.rangeLength([6, 15]),
-  ]);
-  confimarsenha = new FormControl("", [
-    Validators.required,
-    CustomValidators.rangeLength([6, 15]),
-    CustomValidators.equalTo(this.senha),
-  ]);
-  public MASKS = MASKS;
-  usuario: Usuario;
-  formResult: string = "";
-
-  cadastroForm = this.fb.group({
-    nome: [
-      "",
-      [Validators.required, Validators.minLength(2), Validators.maxLength(150)],
-    ],
-    cpf: ["", [Validators.required, NgBrazilValidators.cpf]],
-    email: ["", [Validators.required, Validators.email]],
-    senha: this.senha,
-    confimarsenha: this.confimarsenha,
-  });
   constructor(private fb: FormBuilder) {
+    
     this.validationMessages = {
       nome: {
-        required: "Nome é de preenchimento obrigatorio",
-        minLength: "Minimo 2 caracteres",
-        maxLength: "Maximo 15 Caracteres",
+        required: 'O Nome é requerido',
+        minlength: 'O Nome precisa ter no mínimo 2 caracteres',
+        maxlength: 'O Nome precisa ter no máximo 150 caracteres'
       },
       cpf: {
-        required: "Informe o CPF",
-        cpf: "CPF em formato inválido",
+        required: 'Informe o CPF',
+        cpf: 'CPF em formato inválido'
       },
       email: {
-        required: "Informe e-mail",
-        email: "E-mail inválido",
+        required: 'Informe o e-mail',
+        email: 'Email inválido'
       },
       senha: {
-        required: "Informe senha",
-        rangeLength: "A senha deve possuir entre 6 e 15 caracteres",
+        required: 'Informe a senha',
+        rangeLength: 'A senha deve possuir entre 6 e 15 caracteres'
       },
-      confimarsenha: {
-        required: "Informe senha",
-        rangeLength: "A senha deve possuir entre 6 e 15 caracteres",
-        equalTo: "As senhas não conferem",
-      },
+      senhaConfirmacao: {
+        required: 'Informe a senha novamente',
+        rangeLength: 'A senha deve possuir entre 6 e 15 caracteres',
+        equalTo: 'As senhas não conferem'
+      }
     };
+
     this.genericValidator = new GenericValidator(this.validationMessages);
-  }
-  ngAfterViewInit(): void {
-    throw new Error("Method not implemented.");
+   }
+
+  ngOnInit() {
+    let senha = new FormControl('', [Validators.required, CustomValidators.rangeLength([6,15])]);
+    let senhaConfirm = new FormControl('', [Validators.required, CustomValidators.rangeLength([6,15]), CustomValidators.equalTo(senha)]);
+
+    this.cadastroForm = this.fb.group({
+      nome: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(150)]],
+      cpf: ['', [Validators.required, NgBrazilValidators.cpf]],
+      email: ['', [Validators.required, Validators.email]],
+      senha: senha,
+      senhaConfirmacao: senhaConfirm
+    });
   }
 
-  //assim que html foi desponibilizado para o browser
-  ngOnInit(): void {}
+  ngAfterViewInit(): void {
+    let controlBlurs: Observable<any>[] = this.formInputElements
+    .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
+
+    merge(...controlBlurs).subscribe(() => {
+      this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm);
+    });
+  }
 
   adicionarUsuario() {
     if (this.cadastroForm.dirty && this.cadastroForm.valid) {
       this.usuario = Object.assign({}, this.usuario, this.cadastroForm.value);
       this.formResult = JSON.stringify(this.cadastroForm.value);
+    }
+    else {
+      this.formResult = "Não submeteu!!!"
     }
   }
 }
