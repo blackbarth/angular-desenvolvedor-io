@@ -21,7 +21,6 @@ import { ProdutoDashboardComponent } from './demos/arquitetura-componentes/produ
     SobreComponent,
     ContatoComponent,
     CadastroComponent,
-    ProdutoDashboardComponent,
   ],
   imports: [
     BrowserModule,
