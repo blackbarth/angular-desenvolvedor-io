@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Produto} from '../models/produto';
 import {ProdutoService} from "../services/produto.service";
 
@@ -13,7 +13,8 @@ export class EditarProdutoComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private produtoService: ProdutoService
+        private produtoService: ProdutoService,
+        private router: Router
     ) {
     }
 
@@ -24,6 +25,9 @@ export class EditarProdutoComponent implements OnInit {
     }
 
     salvar() {
+//fazer comunicacao com backend
 
+        this.router.navigate(['/produtos'])
+        //this.router.navigateByUrl('/produtos'); // é como se voce tiversse carregado o site pela url ele recarrega o site
     }
 }
