@@ -32,7 +32,10 @@ import { ProdutoDashboardComponent } from './demos/arquitetura-componentes/produ
     AppRoutingModule,
     NavegacaoModule,
   ],
-  providers: [{ provide: APP_BASE_HREF, useValue: "/" }],
+  providers: [
+      // { provide: APP_BASE_HREF, useValue: "/" } // retiramos daqui e inserimos tag <base href="/"> no arquivo index
+
+      ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
