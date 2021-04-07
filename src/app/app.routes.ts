@@ -5,12 +5,12 @@ import {ContatoComponent} from "./institucional/contato/contato.component";
 import {SobreComponent} from "./institucional/sobre/sobre.component";
 import {CadastroComponent} from "./demos/reactiveforms/cadastro/cadastro.component";
 import {NotFoundComponent} from "./navegacao/not-found/not-found.component";
-<<<<<<< HEAD
+
 import {FilmesComponent} from "./demos/pipes/filmes/filmes.component";
-=======
+
 import {AuthGuard} from "./services/app.guard";
 import {CadastroGuard} from "./services/cadastro.guard";
->>>>>>> ef34c8aa224c1693d49a0f1afacda7281aaacc47
+
 
 const rootRouterConfig: Routes = [
     {path: "", redirectTo: "/home", pathMatch: "full"},

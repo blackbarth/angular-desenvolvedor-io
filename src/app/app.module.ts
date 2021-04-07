@@ -15,13 +15,13 @@ import {NavegacaoModule} from "./navegacao/navegacao.module";
 import {AppRoutingModule} from "./app.routes";
 import {ProdutoDashboardComponent} from './demos/arquitetura-componentes/produto-dashboard/produto-dashboard.component';
 import {AdminModule} from "./admin/admin.module";
-<<<<<<< HEAD
+
 import {FilmesComponent} from "./demos/pipes/filmes/filmes.component";
 import {ImageFormaterPipe} from "./demos/pipes/filmes/image.pipe";
-=======
+
 import {AuthGuard} from "./services/app.guard";
 import {CadastroGuard} from "./services/cadastro.guard";
->>>>>>> ef34c8aa224c1693d49a0f1afacda7281aaacc47
+
 
 @NgModule({
     declarations: [
