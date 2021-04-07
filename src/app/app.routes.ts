@@ -5,6 +5,7 @@ import {ContatoComponent} from "./institucional/contato/contato.component";
 import {SobreComponent} from "./institucional/sobre/sobre.component";
 import {CadastroComponent} from "./demos/reactiveforms/cadastro/cadastro.component";
 import {NotFoundComponent} from "./navegacao/not-found/not-found.component";
+import {FilmesComponent} from "./demos/pipes/filmes/filmes.component";
 
 const rootRouterConfig: Routes = [
     {path: "", redirectTo: "/home", pathMatch: "full"},
@@ -24,6 +25,7 @@ const rootRouterConfig: Routes = [
             .then(m => m.AdminModule),
         canLoad:[]
     },
+    {path:'filmes', component: FilmesComponent},
     //sempre ficar por ultimo
     {path: '**', component: NotFoundComponent},
 ];

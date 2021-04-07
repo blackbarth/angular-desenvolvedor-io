@@ -15,12 +15,16 @@ import {NavegacaoModule} from "./navegacao/navegacao.module";
 import {AppRoutingModule} from "./app.routes";
 import {ProdutoDashboardComponent} from './demos/arquitetura-componentes/produto-dashboard/produto-dashboard.component';
 import {AdminModule} from "./admin/admin.module";
+import {FilmesComponent} from "./demos/pipes/filmes/filmes.component";
+import {ImageFormaterPipe} from "./demos/pipes/filmes/image.pipe";
 
 @NgModule({
     declarations: [
         AppComponent,
         SobreComponent,
         ContatoComponent,
+        FilmesComponent,
+        ImageFormaterPipe,
 
     ],
     imports: [
