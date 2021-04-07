@@ -10,9 +10,16 @@ const produtoRouterConfig: Routes = [
         path: '', component: ProdutoAppComponent,
         children: [
             {path: '', redirectTo: 'todos'},
-            {path: ':estado', component: ProdutoDashboardComponent, resolve:{
-                produtos: ProdutoResolve
-                }},
+            {
+                path: ':estado', component: ProdutoDashboardComponent, resolve: {
+                    produtos: ProdutoResolve
+                },
+                data: {
+                    teste: 'informacao'
+                }
+            },
+
+
             {path: 'editar/:id', component: EditarProdutoComponent},
         ]
     },

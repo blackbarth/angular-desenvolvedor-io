@@ -5,35 +5,41 @@ import {Component} from '@angular/core';
     templateUrl: './menu.component.html'
 })
 export class MenuComponent {
-    nav:Nav[] = [
+    nav: Nav[] = [
         {
-            link:'/home',
+            link: '/home',
             name: 'Home',
             exact: true,
             admin: false
         },
         {
-            link:'/cadastro',
+            link: '/cadastro',
             name: 'Cadastro',
             exact: true,
             admin: false
         },
         {
-            link:'/sobre',
+            link: '/sobre',
             name: 'Sobre',
             exact: true,
             admin: false
         },
         {
-            link:'/produtos',
+            link: '/produtos',
             name: 'Produtos',
+            exact: false,
+            admin: false
+        },
+        {
+            link: '/admin',
+            name: 'admin',
             exact: false,
             admin: false
         }]
 }
 
 
-interface Nav{
+interface Nav {
     link: string,
     name: string,
     exact: boolean,

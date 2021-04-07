@@ -18,7 +18,12 @@ const rootRouterConfig: Routes = [
             .then(m => m.ProdutoModule)
     },
 
-
+    {
+        path: "admin",
+        loadChildren: () => import('./admin/admin.module')
+            .then(m => m.AdminModule),
+        canLoad:[]
+    },
     //sempre ficar por ultimo
     {path: '**', component: NotFoundComponent},
 ];
