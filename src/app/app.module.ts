@@ -15,6 +15,8 @@ import {NavegacaoModule} from "./navegacao/navegacao.module";
 import {AppRoutingModule} from "./app.routes";
 import {ProdutoDashboardComponent} from './demos/arquitetura-componentes/produto-dashboard/produto-dashboard.component';
 import {AdminModule} from "./admin/admin.module";
+import {AuthGuard} from "./services/app.guard";
+import {CadastroGuard} from "./services/cadastro.guard";
 
 @NgModule({
     declarations: [
@@ -36,6 +38,8 @@ import {AdminModule} from "./admin/admin.module";
     ],
     providers: [
         // { provide: APP_BASE_HREF, useValue: "/" } // retiramos daqui e inserimos tag <base href="/"> no arquivo index
+        AuthGuard,
+        CadastroGuard
 
     ],
     bootstrap: [AppComponent],
