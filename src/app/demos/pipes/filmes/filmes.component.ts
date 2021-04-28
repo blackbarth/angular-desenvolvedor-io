@@ -44,7 +44,8 @@ export class FilmesComponent implements OnInit {
         nome: 'o poderoso chefão 2',
         dataLancamento: new Date('01/12/1974'),
         valor: 120.00,
-        imagem: 'poderosoChefaoII.jpg',
+        //imagem: 'poderosoChefaoII.jpg',
+        imagem: '',
         tamanho: '1254589899'
       },
       {
